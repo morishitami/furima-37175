@@ -1,24 +1,69 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# テーブル設計
 
-Things you may want to cover:
+## usersテーブル
 
-* Ruby version
+| Column             | Type   | Options                   |
+|--------------------|--------|---------------------------|
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| lastname           | string | null: false               |
+| firstname          | string | null: false               |
+| lastname_kana      | string | null: false               |
+| firstname_kana     | string | null: false               |
+| birthday           | date   | null: false               |
 
-* System dependencies
+### Association
 
-* Configuration
+- has_many :items
+- has_many  :buyers
 
-* Database creation
+## itemsテーブル
 
-* Database initialization
+| Column         | Type       | Options                        |
+|----------------|------------|--------------------------------|
+| title          | string     | null: false                    |
+| explanation    | text       | null: false                    |
+| category_id    | integer    | null: false                    |
+| status_id      | integer    | null: false                    |
+| postage_id     | integer    | null: false                    |
+| state_id       | integer    | null: false                    |
+| days_id        | integer    | null: false                    |
+| price          | integer    | null: false                    |
+| user           | references | null: false, foreign_key: true |
 
-* How to run the test suite
+### Association
 
-* Services (job queues, cache servers, search engines, etc.)
+- has_one   :buyer
+- belong_to :user
 
-* Deployment instructions
+## buyersテーブル
 
-* ...
+| Column | Type       | Options                        |
+|--------|------------|--------------------------------|
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
+
+### Association
+
+- belong_to :user
+- belong_to :item
+- has_one   :buyer_address
+
+## buyer_addressesテーブル
+
+| Column      | Type       | Options                        |
+|-------------|------------|--------------------------------|
+| postal_code | string     | null: false                    |
+| state_id    | integer    | null: false                    |
+| city        | string     | null: false                    |
+| line1       | string     | null: false                    |
+| line2       | string     |                                |
+| phone       | string     | null: false                    |
+| buyer       | references | null: false, foreign_key: true |
+
+### Association
+
+- belong_to :buyer
