@@ -9,4 +9,5 @@ class Item < ApplicationRecord
   validates :prace, presence: true
 
   belong_to :user
+  has_one_attached :image
 end
