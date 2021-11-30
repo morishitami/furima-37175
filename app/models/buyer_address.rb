@@ -6,7 +6,7 @@ class BuyerAddress
     validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
     validates :city
     validates :line1
-    validates :phone,format: {/\A\d{10}$|^\d{11}\z/}
+    validates :phone, format: {with: /\A\d{10}$|^\d{11}\z/}
     validates :user_id
     validates :item_id
   end
@@ -14,6 +14,6 @@ class BuyerAddress
 
   def save
     buyer = Buyer.create(user_id: user_id, item_id: item_id)
-    Address.create(postal_cade: postal_code, state_id: state_id, city: city, line1: line1, line2: line2, phone: phone, buyer_id: buyer.id)
+    Address.create(postal_code: postal_code, state_id: state_id, city: city, line1: line1, line2: line2, phone: phone, buyer_id: buyer.id)
   end
 end
