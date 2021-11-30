@@ -52,7 +52,7 @@
 - belong_to :item
 - has_one   :buyer_address
 
-## buyer_addressesテーブル
+## Addressesテーブル
 
 | Column      | Type       | Options                        |
 |-------------|------------|--------------------------------|
