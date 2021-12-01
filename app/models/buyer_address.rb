@@ -1,6 +1,6 @@
 class BuyerAddress
   include ActiveModel::Model
-  attr_accessor :postal_code, :state_id, :city, :line1, :line2, :phone, :user_id, :item_id
+  attr_accessor :postal_code, :state_id, :city, :line1, :line2, :phone, :user_id, :item_id, :token
 
   with_options presence: true do
     validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Enter it as follows (e.g. 123-4567)"}
