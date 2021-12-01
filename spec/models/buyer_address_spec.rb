@@ -6,7 +6,7 @@ RSpec.describe BuyerAddress, type: :model do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
       @buyer_address = FactoryBot.build(:buyer_address, user_id: user.id, item_id: item.id)
-      sleep 0.8
+      sleep 1
     end
 
     context '内容に問題がない場合' do
@@ -54,6 +54,11 @@ RSpec.describe BuyerAddress, type: :model do
         @buyer_address.phone = "123456789"
         @buyer_address.valid?
         expect(@buyer_address.errors.full_messages).to include("Phone is invalid") 
+      end
+      it 'tokenが空では保存できないこと' do
+        @buyer_address.token = nil
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("Token can't be blank") 
       end
     end
   end

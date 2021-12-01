@@ -6,5 +6,6 @@ FactoryBot.define do
     line1 {'1-2'}
     line2 {'build'}
     phone {'12345678901'}
+    token {"tok_asdfghjklzx00000000000000000"}
   end
 end

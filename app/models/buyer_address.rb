@@ -10,6 +10,7 @@ class BuyerAddress
     validates :phone, format: {with: /\A\d{10}$|^\d{11}\z/}
     validates :user_id
     validates :item_id
+    validates :token
   end
   
 
