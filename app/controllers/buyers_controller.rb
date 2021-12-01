@@ -5,11 +5,9 @@ class BuyersController < ApplicationController
 
   def index
     @buyer_address = BuyerAddress.new
-    set_item
   end
   
   def create
-    set_item
     @buyer_address = BuyerAddress.new(buyer_params)
     if @buyer_address.valid?
       pay_item

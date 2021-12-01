@@ -50,10 +50,35 @@ RSpec.describe BuyerAddress, type: :model do
         @buyer_address.valid?
         expect(@buyer_address.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)") 
       end
-      it '電話番号が10桁以上11桁以内の半角数値でなければ保存できないこと' do
+      it '都道府県のidが1が選択されている場合では保存できないこと' do
+        @buyer_address.state_id = "1"
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("State can't be blank") 
+      end
+      it '電話番号が10桁未満の半角数値では保存できないこと' do
         @buyer_address.phone = "123456789"
         @buyer_address.valid?
         expect(@buyer_address.errors.full_messages).to include("Phone is invalid") 
+      end
+      it '電話番号が11桁を超えるの半角数値では保存できないこと' do
+        @buyer_address.phone = "123456789012"
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("Phone is invalid") 
+      end
+      it '電話番号に半角数値以外が含まれている場合は保存できないこと' do
+        @buyer_address.phone = "123456789あ"
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("Phone is invalid") 
+      end
+      it "userが紐付いていないと登録できない" do
+        @buyer_address.user_id = nil
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("User can't be blank")
+      end
+      it "itemが紐付いていないと登録できない" do
+        @buyer_address.item_id = nil
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("Item can't be blank")
       end
       it 'tokenが空では保存できないこと' do
         @buyer_address.token = nil
